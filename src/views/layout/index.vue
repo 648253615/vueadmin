@@ -24,24 +24,24 @@ export default {
     },
     menus() {
       const menus = [];
-      this.$router.options.routes.map(route => {
-        if (route.meta) {
-          const children = [];
-          if (route.children) {
-            route.children.map(routeItem => {
-              if (routeItem.meta) {
+      this.$router.getRoutes().forEach(route => {
+        if (route.meta && route.meta.title) {
+          if (route.path.split("/").length === 2) {
+            const children = [];
+            route.children.forEach(routeItem => {
+              if (routeItem.meta && routeItem.meta.title) {
                 children.push({
                   index: route.path + "/" + routeItem.path,
                   title: routeItem.meta.title
                 });
               }
             });
+            menus.push({
+              children,
+              index: route.path,
+              title: route.meta.title
+            });
           }
-          menus.push({
-            children,
-            index: route.path,
-            title: route.meta.title
-          });
         }
       });
       return menus;

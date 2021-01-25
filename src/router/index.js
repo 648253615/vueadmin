@@ -8,21 +8,17 @@ const router = createRouter({
 });
 
 router.beforeEach(async to => {
-  if (store.state.token) {
+  if (store.state.token && store.state.userInfo.role) {
     if (to.path === "/login") {
       return "/home";
     } else {
-      router.options.routes.map((route, index) => {
-        if (!hasPermission(route)) {
+      routes.forEach(route => {
+        if (hasPermission(route)) {
+          if (!router.hasRoute(route.name)) {
+            router.addRoute(route);
+          }
+        } else if (router.hasRoute(route.name)) {
           router.removeRoute(route.name);
-          router.options.routes.splice(index, 1);
-        } else if (route.children) {
-          route.children.map((routeItem, index) => {
-            if (!hasPermission(routeItem)) {
-              router.removeRoute(routeItem.name);
-              route.children.splice(index, 1);
-            }
-          });
         }
       });
     }

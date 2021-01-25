@@ -3,9 +3,12 @@ import getters from "./getters";
 import mutations from "./mutations";
 import actions from "./actions";
 
+const token = localStorage.getItem("token");
+const userInfo = localStorage.getItem("userInfo");
+
 const state = {
-  token: localStorage.token,
-  userInfo: localStorage.userInfo ? JSON.parse(localStorage.userInfo) : {}
+  token,
+  userInfo: userInfo ? JSON.parse(userInfo) : {}
 };
 
 export default createStore({

@@ -71,7 +71,7 @@ export default {
           type: res.code === 0 ? "success" : "error"
         });
         if (res.code === 0) {
-          window.location.reload();
+          this.$router.replace("/home");
         }
       }
     },

@@ -2,10 +2,12 @@ import Layout from "@/views/layout";
 
 const routes = [
   {
+    name: "login",
     path: "/login",
     component: () => import("@/views/login/index")
   },
   {
+    name: "home",
     path: "/home",
     component: Layout,
     meta: {
@@ -29,6 +31,7 @@ const routes = [
     },
     children: [
       {
+        name: "user",
         path: "user",
         component: () => import("@/views/system/user/index"),
         meta: {
@@ -44,6 +47,7 @@ const routes = [
         }
       },
       {
+        name: "permission",
         path: "permission",
         component: () => import("@/views/system/permission/index"),
         meta: {
@@ -53,6 +57,7 @@ const routes = [
     ]
   },
   {
+    name: "404",
     path: "/:pathMatch(.*)",
     redirect: "/home"
   }
